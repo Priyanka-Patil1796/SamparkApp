@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.samparksuchiapplication.Model.ContactDetailsModel;
 import java.util.ArrayList;
 
-public class SearchPeopleResult  extends AppCompatActivity
+public class SearchPeopleResultActivity extends AppCompatActivity
 {
     LinearLayout linearLayout;
     ArrayList<ContactDetailsModel> myList;
@@ -25,7 +25,7 @@ public class SearchPeopleResult  extends AppCompatActivity
         linearLayout = findViewById(R.id.ll);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("SearchPeopleResult");
+        getSupportActionBar().setTitle("SearchPeopleResultActivity");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         myList = (ArrayList<ContactDetailsModel>) getIntent().getSerializableExtra("list");
@@ -62,6 +62,10 @@ public class SearchPeopleResult  extends AppCompatActivity
             city.setText(myList.get(i).getCity());
             aDate.setText(myList.get(i).getAnniversaryDate());
             occupation.setText(myList.get(i).getOccupation());
+
+            if (myList.get(i).getAnniversaryDate().equals(null) || myList.get(i).getAnniversaryDate().equalsIgnoreCase("null")){
+                aDate.setText("-");
+            }
 
             linearLayout.addView(myView);
 
@@ -108,7 +112,6 @@ public class SearchPeopleResult  extends AppCompatActivity
             });
           }
        }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
