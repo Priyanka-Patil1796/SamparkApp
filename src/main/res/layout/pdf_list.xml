@@ -10,20 +10,23 @@
         android:id="@+id/cv_pdf"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:elevation="5dp"
-        android:backgroundTint="@android:color/holo_blue_light"
-        android:background="@drawable/card_edge1"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:background="@drawable/card_edge_blue">
 
         <TextView
             android:id="@+id/tv_pdf_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Album"
-            android:gravity="center_horizontal"
             android:padding="10dp"
-            android:textColor="@android:color/white"
+            android:drawableRight="@drawable/ic_pdf"
+            android:textColor="@android:color/black"
             android:textSize="15dp"/>
 
     </com.google.android.material.card.MaterialCardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_marginTop="5dp"/>
 </LinearLayout>

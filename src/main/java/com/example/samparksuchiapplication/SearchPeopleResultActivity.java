@@ -25,7 +25,7 @@ public class SearchPeopleResultActivity extends AppCompatActivity
         linearLayout = findViewById(R.id.ll);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("SearchPeopleResultActivity");
+        getSupportActionBar().setTitle("SearchPeopleResult");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         myList = (ArrayList<ContactDetailsModel>) getIntent().getSerializableExtra("list");

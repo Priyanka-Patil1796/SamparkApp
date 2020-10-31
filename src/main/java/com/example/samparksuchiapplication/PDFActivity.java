@@ -27,7 +27,7 @@ public class PDFActivity extends AppCompatActivity
         setContentView(R.layout.pdf_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("PDFActivity");
+        getSupportActionBar().setTitle("PDF");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         linearLayout = findViewById(R.id.ll_pdf_activity);

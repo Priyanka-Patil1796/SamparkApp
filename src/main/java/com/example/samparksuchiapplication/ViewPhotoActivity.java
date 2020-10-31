@@ -19,7 +19,7 @@ public class ViewPhotoActivity extends AppCompatActivity {
         imageView = findViewById(R.id.img_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("DisplayPhotoAlbumActivity");
+        getSupportActionBar().setTitle("ViewPhoto");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

@@ -1,15 +1,24 @@
 package com.example.samparksuchiapplication;
 
+import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.samparksuchiapplication.Adapter.CalenderAdapter;
+import com.example.samparksuchiapplication.Adapter.SwipeAdapter;
 import com.example.samparksuchiapplication.DataBase.DBHelper;
 import com.example.samparksuchiapplication.Model.ContactDetailsModel;
 import java.text.SimpleDateFormat;
@@ -23,6 +32,15 @@ public class MonthlyCalenderActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     DBHelper helper;
     List<ContactDetailsModel> myList;
+    ViewPager viewPager;
+    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+    Integer[] colors = null;
+    LinearLayout sliderDotspanel;
+    private int dotscount;
+    private ImageView[] dots;
+    CalenderAdapter adapter;
+    ImageView leftArrow,rightArrow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,14 +49,46 @@ public class MonthlyCalenderActivity extends AppCompatActivity {
         setContentView(R.layout.monthly_calender_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("MonthlyCalenderActivity");
+        getSupportActionBar().setTitle("MonthlyCalender");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        leftArrow = findViewById(R.id.iv_left_arrow);
+        rightArrow = findViewById(R.id.iv_right_arrow);
         linearLayout = findViewById(R.id.ll_monthly_calender);
+        viewPager = findViewById(R.id.ViewPagerUser);
+        sliderDotspanel = findViewById(R.id.SliderDots);
         helper = new DBHelper(getApplicationContext());
         myList = new ArrayList<>();
 
-        getMonthlyCalender();
+        leftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int tab = viewPager.getCurrentItem();
+                if (tab > 0) {
+                    tab--;
+                    viewPager.setCurrentItem(tab);
+                } else if (tab == 0) {
+                    viewPager.setCurrentItem(tab);
+                }
+            }
+        });
+
+
+        rightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int tab = viewPager.getCurrentItem();
+                tab++;
+                viewPager.setCurrentItem(tab);
+            }
+        });
+
+        viewPager.setOffscreenPageLimit(1);
+        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(swipeAdapter);
+        viewPager.setCurrentItem(0);
+
+       // getMonthlyCalender();
     }
 
     private void getMonthlyCalender() {
@@ -46,7 +96,7 @@ public class MonthlyCalenderActivity extends AppCompatActivity {
         System.out.println("Current time => " + c);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
-        String date = "11/05/2005";
+        String date = formattedDate;
         String[] date1 = date.split("/");
         Calendar beginTime = Calendar.getInstance();
         beginTime.set(Integer.parseInt(date1[2]), Integer.parseInt(date1[1]), Integer.parseInt(date1[0]));
@@ -54,7 +104,8 @@ public class MonthlyCalenderActivity extends AppCompatActivity {
         Log.e("Month",""+Integer.parseInt(date1[1]));
         myList = helper.getMonth(Integer.parseInt(date1[1]));
 
-        for(int i=0;i<myList.size();i++){
+        for(int i=0;i<myList.size();i++)
+        {
             if (myList.get(i).getAnniversaryDate().equalsIgnoreCase("null")){
                 if (myList.get(i).getAMonth()==Integer.parseInt(date1[1])){
                     myList.remove(i);
@@ -65,8 +116,35 @@ public class MonthlyCalenderActivity extends AppCompatActivity {
             }
         }
 
+//        try {
+//            adapter = new CalenderAdapter(myList,MonthlyCalenderActivity.this);
+//            viewPager.setAdapter(adapter);
+//        } catch (Exception e) {
+//            Toast.makeText(getApplicationContext(),""+e.toString(),Toast.LENGTH_SHORT).show();
+//        }
+//
+//        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+       //  getList(myList);
+    }
+
+    private void getList(List<ContactDetailsModel> myList) {
         LayoutInflater linflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for ( int i=0;i<myList.size();i++) {
+        for ( int i=0;i<myList.size();i++)
+        {
             View myView = linflater.inflate(R.layout.search_people_result_list, null); //here item is the the layout you want to inflate
             TextView name = myView.findViewById(R.id.tvName);
             TextView city = myView.findViewById(R.id.tvcity);

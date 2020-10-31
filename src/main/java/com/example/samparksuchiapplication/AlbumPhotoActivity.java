@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samparksuchiapplication.Adapter.ViewAlbumAdapter;
+import com.example.samparksuchiapplication.Adapter.ViewPhotoAdapter;
 import com.example.samparksuchiapplication.Model.AlbumModel;
 import com.example.samparksuchiapplication.Model.DataProccessor;
 import com.google.android.material.card.MaterialCardView;
@@ -31,9 +34,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlbumPhotoActivity extends AppCompatActivity {
-    List<AlbumModel> list;
+public class AlbumPhotoActivity extends AppCompatActivity  implements ViewAlbumAdapter.AlbumNameCallBack{
+   // List<AlbumModel> list;
     LinearLayout linearLayout;
+    GridView gridView;
+    ArrayList<AlbumModel> list = new ArrayList<>();
     private String mJSONURLString = "http://btwebservices.biyanitechnologies.com/galaxybackupservices/galaxy1.svc/GetBtAlbum";
 
 
@@ -43,12 +48,12 @@ public class AlbumPhotoActivity extends AppCompatActivity {
         setContentView(R.layout.album_photo_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Album Activity");
+        getSupportActionBar().setTitle("Albums");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        linearLayout = findViewById(R.id.ll_photo);
-
-        list = new ArrayList<>();
+        gridView = findViewById(R.id.albumGridView);
+//        linearLayout = findViewById(R.id.ll_photo);
+    //    list = new ArrayList<>();
         getAlbums();
     }
 
@@ -73,8 +78,11 @@ public class AlbumPhotoActivity extends AppCompatActivity {
                                 albumModel.setAlbumID(Integer.parseInt(albumId));
                                 albumModel.setAlbum(albumName);
                                 list.add(albumModel);
-                                getAlbumName(list);
+                               // getAlbumName(list);
                             }
+
+                            ViewAlbumAdapter adapter = new ViewAlbumAdapter(AlbumPhotoActivity.this,R.layout.view_album_adapter_list, list, AlbumPhotoActivity.this);
+                            gridView.setAdapter(adapter);
                         }catch (JSONException e){
                             Toast.makeText(getApplicationContext(),""+e.toString(),Toast.LENGTH_SHORT).show();
                         }
@@ -133,5 +141,12 @@ public class AlbumPhotoActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home)
             onBackPressed();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getAlbumID(int albumID) {
+        Intent intent = new Intent(AlbumPhotoActivity.this, DisplayPhotoAlbumActivity.class);
+        intent.putExtra("AlbumID",albumID);
+        startActivity(intent);
     }
 }

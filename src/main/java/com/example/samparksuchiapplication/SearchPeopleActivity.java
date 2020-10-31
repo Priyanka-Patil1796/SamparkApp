@@ -152,14 +152,14 @@ public class SearchPeopleActivity  extends AppCompatActivity {
             public void onClick(View view) {
 //                if (checkValidation())
                 {
-                   DBHelper helper = new DBHelper(getApplicationContext());
-                   list =  helper.getSearchResult(etName.getText().toString(),
-                           etOccupation.getText().toString(),etCity.getText().toString(),
-                           etBirthDate.getText().toString(),etToBirthDate.getText().toString(),
-                           etAnniversaryDate.getText().toString(),etToAnniDate.getText().toString());
-                       Intent intent = new Intent(getApplicationContext(), SearchPeopleResultActivity.class);
-                       intent.putExtra("list", list);
-                       startActivity(intent);
+//                   DBHelper helper = new DBHelper(getApplicationContext());
+//                   list =  helper.getSearchResult(etName.getText().toString(),
+//                           etOccupation.getText().toString(),etCity.getText().toString(),
+//                           etBirthDate.getText().toString(),etToBirthDate.getText().toString(),
+//                           etAnniversaryDate.getText().toString(),etToAnniDate.getText().toString());
+//                       Intent intent = new Intent(getApplicationContext(), SearchPeopleResultActivity.class);
+//                       intent.putExtra("list", list);
+//                       startActivity(intent);
                 }
             }
         });
