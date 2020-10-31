@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements ContactDetailsAda
     List<ContactDetailsModel> list1;
     LinearLayout linearLayout;
     ContactDetailsModel model;
-     ProgressDialog progressDialog;
-     ProgressBar progressBar;
+    ProgressDialog progressDialog;
+    ProgressBar progressBar;
     private String mJSONURLString = "http://btwebservices.biyanitechnologies.com/galaxybackupservices/galaxy1.svc/GetBtContactData";
 
 
@@ -207,7 +207,6 @@ public class MainActivity extends AppCompatActivity implements ContactDetailsAda
                                     }
                                 }
 
-
                                 if (weddding.equals("null") || weddding.equalsIgnoreCase(null)) {
                                 }
 
@@ -299,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements ContactDetailsAda
         System.out.println("Current time => " + c);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
-        String date = "11/05/2005";
+        String date = formattedDate;
         String[] date1 = date.split("/");
         Calendar beginTime = Calendar.getInstance();
         beginTime.set(Integer.parseInt(date1[2]), Integer.parseInt(date1[1]), Integer.parseInt(date1[0]));
